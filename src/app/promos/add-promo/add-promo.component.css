@@ -1,0 +1,19 @@
+.form {
+  background-color: #e9ecef;
+}
+label{
+  font-size: 20px;
+}
+.ajou{
+  text-align: center;
+}
+.form {
+  width: 60%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.btn{
+  background-color: #328b8a;
+}

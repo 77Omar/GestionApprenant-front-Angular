@@ -1,0 +1,65 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Skill Group</title>
+  <link rel="stylesheet" href="https://codepen.io/gymratpacks/pen/VKzBEp#0">
+</head>
+<body>
+<div class="row">
+  <div class="col-md-12">
+      <!--{{CreateReferentielForm.value| json}}-->
+    <form [formGroup]="CreateReferentielForm" (ngSubmit)="CreateReferentiel()">
+      <h1> Add Skill Group </h1>
+      <input  type="hidden" placeholder="id" formControlName="id">
+      <fieldset>
+        <legend><span class="number">1</span> Your Basic Info</legend>
+        <div class="form-group">
+          <label for="libelle">Libelle:</label>
+          <input type="text" id="libelle" name="libelle" formControlName="libelle">
+          <small class="text-danger" *ngIf="hasError('libelle','required')" >Le libelle est requis</small>
+          <small class="text-danger" *ngIf="hasError('libelle', 'maxlength')">Vous avez plus de 60 caractères</small>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="form-group">
+          <label for="presentation">Presentation:</label>
+          <textarea id="presentation" name="presentation" formControlName="presentation"></textarea>
+          <small class="text-danger" *ngIf="hasError('presentation','required')" >La presentation est requis</small>
+          <small class="text-danger" *ngIf="hasError('presentation', 'maxlength')">Vous avez plus de 60 caractères</small>
+        </div>
+        <div class="form-group">
+          <label for="criteresEvaluation">CriteresEvaluation:</label>
+          <input type="text" id="criteresEvaluation" name="criteresEvaluation" formControlName="criteresEvaluation">
+          <small class="text-danger" *ngIf="hasError('criteresEvaluation','required')" >Le CriteresEvaluation est requis</small>
+          <small class="text-danger" *ngIf="hasError('criteresEvaluation', 'maxlength')">Vous avez plus de 60 caractères</small>
+        </div>
+        <div class="form-group">
+          <label for="criteresAdmission">CriteresAdmission:</label>
+          <input type="text" id="criteresAdmission" name="criteresAdmission" formControlName="criteresAdmission">
+          <small class="text-danger" *ngIf="hasError('criteresAdmission','required')" >Le CriteresAdmission est requis</small>
+          <small class="text-danger" *ngIf="hasError('criteresAdmission', 'maxlength')">Vous avez plus de 60 caractères</small>
+        </div>
+        <div class="form-group">
+          <label for="programme">Programme:</label>
+          <input type="file"
+                 class="form-control-file border"
+                 formControlName="programme"
+                 id="programme"
+                 (change)="detectFiles($event)">
+        </div>
+        <div class="multiselect">
+          <angular2-multiselect [data]="groupCompetence" [(ngModel)]="selectedItems"  formControlName="groupeCompetence"
+                                [settings]="dropdownSettings"
+          ></angular2-multiselect>
+        </div>
+      </fieldset>
+      <button type="submit" [disabled]="!CreateReferentielForm.valid">Create</button>
+
+    </form>
+
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Skill Group</title>
+  <link rel="stylesheet" href="https://codepen.io/gymratpacks/pen/VKzBEp#0">
+</head>
+<body>
+<div class="row">
+  <div class="col-md-12">
+      <!--{{CreateCompetenceForm.value| json}}-->
+    <form [formGroup]="CreateCompetenceForm" (ngSubmit)="CreateCompetence()">
+      <h1> Add Skills </h1>
+      <fieldset>
+        <legend><span class="number">1</span> Your Basic Info</legend>
+        <div class="form-group">
+          <label for="libelle">Libelle:</label>
+          <input type="text" id="libelle" name="libelle" formControlName="libelle">
+          <small class="text-danger" *ngIf="hasError('libelle','required')" >Le libelle est requis</small>
+          <small class="text-danger" *ngIf="hasError('libelle', 'maxlength')">Vous avez plus de 60 caractères</small>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="multiselect">
+          <angular2-multiselect [data]="groupCompetence" [(ngModel)]="selectedItems"  formControlName="groupeCompetences"
+                                [settings]="dropdownSettings"
+          ></angular2-multiselect>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="form-group">
+          <label>Niveaux:</label>
+          <div class="row">
+            <div class="col-sm-10">
+              <button type="button" (click)="onAddSecNiveaux()" class="btn btn-outline-success" style="border: 1px solid #e8eeef;; padding: 10px; width: 100px; margin: 5px;">+</button>
+            </div>
+          </div>
+        <div formArrayName="niveaux">
+          <div *ngFor="let secNiveauCtr of getNiveauxSecCtr(); let i= index" class="form-group mt-2">
+            <div formGroupName="{{i}}" style="border: 1px solid #e8eeef; padding: 10px; width: 450px; margin: 5px;">
+              <label for="libelle">Libelle:</label>
+              <input type="text" class="form-control" formControlName="libelle">
+                <label for="critereEvaluation">critereEvaluation:</label>
+                <input type="text" class="form-control" formControlName="critereEvaluation" id="critereEvaluation">
+               <label for="groupeAction">groupeAction:</label>
+               <input type="text" class="form-control" formControlName="groupeAction" id="groupeAction">
+          </div>
+          </div>
+        </div>
+        </div>
+      </fieldset>
+
+      <button type="submit" [disabled]="!CreateCompetenceForm.valid">Create</button>
+
+    </form>
+
+  </div>
+</div>
+
+</body>
+</html>
+
+

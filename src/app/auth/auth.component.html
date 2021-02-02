@@ -1,0 +1,58 @@
+<!-- Main Content -->
+<div class="container-fluid">
+  <div class="row main-content bg-success text-center">
+    <div class="col-md-4 text-center company__info">
+      <span class="company__logo"><h2><span class="fa fa-android"></span></h2></span>
+      <h4 class="company_title">Your Company Logo</h4>
+    </div>
+    <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
+      <div class="container-fluid">
+        <div class="row">
+          <h2>Log In</h2>
+        </div>
+        <div class="row">
+          <form method="post" (ngSubmit)="onSubmit()" [formGroup]="loginForm" name="loginForm" class="form-group">
+            <div class="row">
+              <input type="text"
+                     [(ngModel)]="userData.email"
+                     name="email"
+                     id="email"
+                     class="form-control"
+                     formControlName="email"
+                     placeholder="Entrer votre email"
+                     [formControlName]="'email'"
+                     >
+               <small *ngIf="!loginForm.get('email').valid && loginForm.get('email').touched"
+                      class="text-danger">Pleaz enter a valid email</small>
+            </div>
+            <div class="row">
+              <!-- <span class="fa fa-lock"></span> -->
+              <input type="password"
+                     [(ngModel)]="userData.password"
+                     name="password"
+                     id="password"
+                     class="form-control"
+                     formControlName="password"
+                     placeholder="entrer votre mot de passe"
+                     [formControlName]="'password'">
+              <small *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched"
+                     class="text-danger">Pleaz enter a valid password</small>
+            </div>
+            <div class="row">
+              <input type="checkbox" name="remember_me" id="remember_me" class="">
+              <label for="remember_me">Remember Me!</label>
+            </div>
+            <div class="row">
+              <input [disabled]="!loginForm.valid" type="submit" (click)="getlogin()" value="Submit" class="btn">
+            </div>
+          </form>
+        </div>
+        <div class="row">
+          <p>Don't have an account? <a href="#">Register Here</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

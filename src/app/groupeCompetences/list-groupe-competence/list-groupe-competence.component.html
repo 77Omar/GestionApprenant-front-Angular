@@ -1,0 +1,12 @@
+<div class="card bg-light mb-3 w-100">
+  <div class="card-header font-weight-bold">Liste Groupe de Competences</div>
+  <div class="card-body">
+    <h4 class="card-title" [routerLink]="['add']" class="card-title btn btn-info"><i class="fa fa-user-plus" aria-hidden="true"></i>
+      Create</h4>
+    <div class="row">
+      <app-item-groupe-competence *ngFor="let grComp of groupComp" class="col-sm-4 mb-4" [grcompetence]="grComp"></app-item-groupe-competence>
+    </div>
+
+  </div>
+</div>
+

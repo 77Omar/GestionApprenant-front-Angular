@@ -1,0 +1,55 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Skill Group</title>
+  <link rel="stylesheet" href="https://codepen.io/gymratpacks/pen/VKzBEp#0">
+</head>
+<body>
+<div class="row">
+  <div class="col-md-12">
+      <!--{{CreategroupCompForm.value| json}}-->
+    <form [formGroup]="CreategroupCompForm" (ngSubmit)="CreategroupComp()">
+      <h1> Add Skill Group </h1>
+      <fieldset>
+        <legend><span class="number">1</span> Your Basic Info</legend>
+        <div class="form-group">
+           <label for="libelle">Libelle:</label>
+           <input type="text" id="libelle" name="libelle" formControlName="libelle">
+          <small class="text-danger" *ngIf="hasError('libelle','required')" >Le libelle est requis</small>
+          <small class="text-danger" *ngIf="hasError('libelle', 'maxlength')">Vous avez plus de 60 caractères</small>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="form-group">
+             <label for="descriptif">Descriptif:</label>
+              <textarea id="descriptif" name="descriptif" formControlName="descriptif"></textarea>
+          <small class="text-danger" *ngIf="hasError('descriptif','required')" >Le descriptif est requis</small>
+          <small class="text-danger" *ngIf="hasError('descriptif', 'maxlength')">Vous avez plus de 60 caractères</small>
+
+        </div>
+
+        <!--<label for="competence">Competences:</label>
+        <select id="competence" name="competence" formControlName="competences">
+          <optgroup label="competence">
+            <option *ngFor="let c of competence" value="{{c.id}}" >{{c.libelle}}</option>
+          </optgroup>
+
+        </select>-->
+        <div class="multiselect">
+          <angular2-multiselect [data]="competence" [(ngModel)]="selectedItems"  formControlName="competences"
+                              [settings]="dropdownSettings"
+                               ></angular2-multiselect>
+        </div>
+      </fieldset>
+      <button type="submit" [disabled]="!CreategroupCompForm.valid">Create</button>
+
+    </form>
+
+  </div>
+</div>
+
+</body>
+</html>
+
+

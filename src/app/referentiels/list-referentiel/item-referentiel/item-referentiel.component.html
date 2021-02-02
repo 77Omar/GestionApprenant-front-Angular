@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="heading{{refs.id}}">
+        <h4 class="p-3 mb-2 bg-info text-white">
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="{{'#collapse'+refs.id}}" aria-expanded="true" aria-controls="collapseOne">
+            <h4>#Cliquez pour voir les details de ce Referentiel</h4>
+          </a>
+        </h4>
+      </div>
+      <div id="collapse{{refs.id}}" class="panel-collapse collapse in" role="tabpanel">
+        <div class="col-sm-12 col-sm-12 item">
+          <div class="card item-card card-block">
+            <h3 class="item-card-title mt-3 mb-3">{{refs.libelle}}</h3>
+            <img src="https://static.pexels.com/photos/7096/people-woman-coffee-meeting.jpg" alt="Photo of sunset">
+            <h3 class="item-card-title mt-3 mb-3">{{refs.presentation }}</h3>
+            <h3 class="item-card-title mt-3 mb-3">{{refs.criteresAdmission }}</h3>
+            <h3 class="item-card-title mt-3 mb-3">{{refs.criteresEvaluation }}</h3>
+            <!--<h3 class="card-img-top"><img src="{{'data:image/jpg;base64,' +refs.programme}}" class="avatar" alt=""></h3>-->
+            <!--<button (click)="generatePdf()">Open PDF</button>-->
+            <!--<input type="button" (click)="getFile" value="Get File" />-->
+            <div class="pdf-container">
+              <pdf-viewer [src]="base64Data"
+                          [original-size]="false"
+              ></pdf-viewer>
+            </div>
+            <a class="p-3 mb-2 bg-info text-white" role="button" data-toggle="collapse" data-parent="#accordion" href="{{'#demo'+refs.id}}" aria-expanded="true" aria-controls="collapse">
+              <h5>#Cliquez pour voir les groupes de competences</h5>
+            </a>
+            <div id="demo{{refs.id}}" class="collapse">
+              <h3 class="item-card-title mt-3 mb-3" *ngFor="let ref of refs.groupeCompetences">{{ref.libelle }}</h3>
+              <h3 class="item-card-title mt-3 mb-3" *ngFor="let ref of refs.groupeCompetences">{{ref.descriptif }}</h3>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

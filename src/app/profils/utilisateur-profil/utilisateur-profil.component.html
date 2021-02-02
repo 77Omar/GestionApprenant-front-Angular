@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>UI Components Project | Ads Manager</title>
+</head>
+<body>
+<div class="outer-container">
+  <h1>User Profile List</h1>
+  <table>
+    <thead>
+    <tr>
+      <th scope="col">Avatar</th>
+      <th scope="col">Prenom</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Mail</th>
+      <th scope="col">Profil</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr class="priority-300" *ngFor="let u of usersProfil">
+      <td><img src="{{'data:image/jpg;base64,' +u.avatar}}" class="avatar" alt=""></td>
+      <td>{{u.firstName}}</td>
+      <td>{{u.lastName}}</td>
+      <td>{{u.email}}</td>
+      <td>{{u.profil.libelle}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

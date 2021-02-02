@@ -1,0 +1,9 @@
+<app-auth *ngIf="!isConnect()"></app-auth>
+
+<div class="" *ngIf="isConnect()">
+  <app-header></app-header>
+  <app-jumbotron></app-jumbotron>
+  <router-outlet></router-outlet>
+</div>
+
+

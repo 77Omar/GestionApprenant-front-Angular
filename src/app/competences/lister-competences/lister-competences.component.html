@@ -1,0 +1,66 @@
+<h4 [routerLink]="['add']" class="card-title btn btn-info w-25 h-25"><i class="fa fa-user-plus" aria-hidden="true"></i>
+  Create</h4>
+<div class="card-group row">
+  <div class="card col-5">
+    <img class="card-img-top" src="..." alt="">
+    <div class="card-body">
+      <label for="select"></label>
+      <select #selectElement class="form-select form-control" id="select" (change)="getCompGroups(selectElement.value)">
+        <option *ngFor="let c of groupcompetence" value="{{c.id}}" >{{c.libelle}}</option>
+      </select>
+      <div class="ps-4 mt-4" id="myDIV">
+        <div class="list-group w-75 shadow-lg mb-2" >
+          <a *ngFor="let c of competences; let i= index" (click)="getNiveau(i)" class="list-group-item p-4 border-dark btnn">{{c.libelle}} <i class="fa fa-tasks float-end" ></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card col-7" >
+    <div class="form-group" *ngIf="niveaucomp.length">
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Niveau1</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Niveau2</a>
+          <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Niveau3</a>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <div class="row">
+          <div class="col-6 border">
+            <p><strong>{{niveaucomp[0].critereEvaluation}}</strong></p><br><span style="..."></span>
+          </div>
+          <div class="col-6 border">
+            <p><strong>{{niveaucomp[0].groupeAction}}</strong></p><br><span style="..."></span>
+          </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <div class="row">
+            <div class="col-6 border">
+              <p><strong>{{niveaucomp[1].critereEvaluation}}</strong></p><br><span style="..."></span>
+            </div>
+            <div class="col-6 border">
+              <p><strong>{{niveaucomp[1].groupeAction}}</strong></p><br><span style="..."></span>
+            </div>
+          </div>        </div>
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+          <div class="row">
+            <div class="col-6 border">
+              <p><strong>{{niveaucomp[2].critereEvaluation}}</strong></p><br><span style="..."></span>
+            </div>
+            <div class="col-6 border">
+              <p><strong>{{niveaucomp[2].groupeAction}}</strong></p><br><span style="..."></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

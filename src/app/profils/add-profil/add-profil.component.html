@@ -1,0 +1,15 @@
+<main id="main">
+  <p id="description">Adding Part.</p>
+  <form id="survey-form" [formGroup]="CreateForm" (ngSubmit)="createProfil()">
+    <div class="form-group">
+      <label for="libelle">Libelle:</label>
+      <input type="text" class="form-control" formControlName="libelle" id="libelle">
+      <small class="text-danger" *ngIf="hasError('libelle','required')" >Le libelle est requis</small>
+      <small class="text-danger" *ngIf="hasError('libelle', 'maxlength')">Vous avez plus de 60 caractères</small>
+    </div>
+    <div class="">
+      <button type="submit" class="btn btn-primary btn-lg" [disabled]="!CreateForm.valid">Create</button>
+    </div>
+  </form>
+</main>
+
