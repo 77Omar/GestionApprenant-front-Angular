@@ -1,46 +1,85 @@
-<h1 class="ajou">Ajouter Promo</h1>
-<form class="form">
-  <div class="form-group">
-    <label for="exampleFormControlSelect1">Choix de la langue</label>
-    <select class="form-control" formControlName="langue" id="exampleFormControlSelect1">
-      <option>Ang</option>
-      <option>Fr</option>
-      <option>Esp</option>
-    </select>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Skill Group</title>
+  <link rel="stylesheet" href="https://codepen.io/gymratpacks/pen/VKzBEp#0">
+</head>
+<body>
+<div class="row">
+  <div class="col-md-12">
+         <!--{{CreatePromoForm.value| json}}-->
+    <form [formGroup]="CreatePromoForm" (ngSubmit)="CreatePromo()">
+      <h1>Add Promo</h1>
+      <input  type="hidden" placeholder="id" formControlName="id">
+      <fieldset>
+        <legend><span class="number">1</span> Your Basic Info</legend>
+        <div class="form-group">
+          <label for="langue">Choix de la langue:</label>
+          <input type="text" id="langue" name="langue" formControlName="langue">
+          <small class="text-danger" *ngIf="hasError('langue','required')" >La langue est requis</small>
+          <small class="text-danger" *ngIf="hasError('langue', 'maxlength')">Vous avez plus de 60 caractères</small>
+        </div>
+      </fieldset>
+      <fieldset>
+        <div class="form-group">
+          <label for="titre">Titre:</label>
+          <input type="text" id="titre" name="titre" formControlName="titre">
+          <small class="text-danger" *ngIf="hasError('titre','required')" >Le titre est requis</small>
+          <small class="text-danger" *ngIf="hasError('titre', 'maxlength')">Vous avez plus de 60 caractères</small>
+        </div>
+        <div class="form-group">
+          <label for="description">Description de la Promo:</label>
+          <textarea id="description" name="description" formControlName="description"></textarea>
+          <small class="text-danger" *ngIf="hasError('description','required')" >La description est requis</small>
+          <small class="text-danger" *ngIf="hasError('description', 'maxlength')">Vous avez plus de 60 caractères</small>
+        </div>
+        <div class="form-group">
+          <label for="lieu">Lieu de la Promo:</label>
+          <input type="text" id="lieu" name="lieu" formControlName="lieu">
+          <small class="text-danger" *ngIf="hasError('lieu','required')" >Le lieu est requis</small>
+          <small class="text-danger" *ngIf="hasError('lieu', 'maxlength')">Vous avez plus de 60 caractères</small>
+        </div>
+        <div class="form-group">
+          <label for="referenceAgate">Reference Agate:</label>
+          <input type="text" id="referenceAgate" name="referenceAgate" formControlName="referenceAgate">
+          <small class="text-danger" *ngIf="hasError('referenceAgate','required')" >Le referenceAgate est requis</small>
+          <small class="text-danger" *ngIf="hasError('referenceAgate', 'maxlength')">Vous avez plus de 60 caractères</small>
+        </div>
+        <div class="form-group">
+          <label for="fabrique">Choix de la fabrique:</label>
+          <input type="text" id="fabrique" name="fabrique" formControlName="fabrique">
+          <small class="text-danger" *ngIf="hasError('fabrique','required')" >La fabrique est requis</small>
+          <small class="text-danger" *ngIf="hasError('fabrique', 'maxlength')">Vous avez plus de 60 caractères</small>
+        </div>
+        <div class="form-group">
+          <label for="dateDebut">dateDebut:</label>
+          <input type="date" id="dateDebut" name="dateDebut" formControlName="dateDebut">
+        </div>
+        <div class="form-group">
+          <label for="dateDebut">dateFin:</label>
+          <input type="date" id="dateFin" name="dateFin" formControlName="dateFin">
+        </div>
+        <div class="multiselect">
+          <angular2-multiselect [data]="referentiels" [(ngModel)]="selectedItems"  formControlName="referentiel"
+                                [settings]="dropdownSettings"
+          ></angular2-multiselect>
+        </div>
+      </fieldset>
+
+      <div>
+        <h3>Ajouter des apprenants</h3>
+        <tag-input name="apprenant" [(ngModel)]="items"
+                   formControlName="apprenant"
+                   [modelAsStrings]="true">
+        </tag-input>
+      </div>
+
+      <button type="submit" [disabled]="!CreatePromoForm.valid">Create</button>
+    </form>
+
   </div>
-  <div class="form-group">
-    <label for="">Titre:</label>
-    <input type="text" class="form-control" formControlName="titre">
-  </div>
-  <div class="form-group">
-    <label for="">Description:</label>
-    <input type="text" class="form-control" formControlName="description">
-  </div>
-  <div class="form-group">
-    <label for="">Lieu:</label>
-    <input type="text" class="form-control" formControlName="lieu">
-  </div>
-  <div class="form-group">
-    <label for="">Refernce-Agate:</label>
-    <input type="text" class="form-control" formControlName="referenceAgate">
-  </div>
-  <div class="form-group">
-    <label for="example-date-input">Date-Debut:</label>
-    <input class="form-control" type="date" value="" id="example-date-input" formControlName="dateDebut">
-  </div>
-  <div class="form-group">
-    <label for="exampleFormControlSelect1">Choix de la Fabrique</label>
-    <select class="form-control" formControlName="fabrique" id="exampleFormControlSelect">
-      <option>fabrique</option>
-      <option>fabrique</option>
-      <option>fabrique</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="example-date">Date-Fin:</label>
-    <input class="form-control" type="date" value="" id="example-date" formControlName="dateDebut">
-  </div>
-    <div class="">
-      <button click="ajouPromo()" class="btn btn-primary btn-lg">Valider</button>
-    </div>
-</form>
+</div>
+
+</body>
+</html>

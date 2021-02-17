@@ -10,6 +10,7 @@ export class AppComponent {
   title = 'FilRougeAngular';
   constructor(private  authService: AuthService) {}
 
+  // tslint:disable-next-line:typedef
   isConnect(){
     return this.authService.getToken();
   }

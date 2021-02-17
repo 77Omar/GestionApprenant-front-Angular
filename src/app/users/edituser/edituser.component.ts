@@ -3,9 +3,10 @@ import {Users} from '../../Models/users.model';
 import {RepositoryService} from '../../repository.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProfilService} from '../../services/profil.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {SuccessDialogComponent} from '../../success-dialog/success-dialog.component';
+import {SuccesUpdateComponent} from '../../succes-update/succes-update.component';
 
 @Component({
   selector: 'app-edituser',
@@ -27,7 +28,8 @@ export class EdituserComponent implements OnInit {
   constructor( private profilService: ProfilService,
                private repoService: RepositoryService,
                private route: ActivatedRoute,
-               private dialog: MatDialog) { }
+               private dialog: MatDialog,
+               private router: Router) { }
 
   profilControl = new FormControl('', Validators.required);
 
@@ -116,7 +118,7 @@ export class EdituserComponent implements OnInit {
     // @ts-ignore
     // formData.append('profil', this.user.profil);
     if (!this.id){
-      const apiUrl = 'http://127.0.0.1:8000/api/admin/users';
+      const apiUrl = 'api/admin/users';
       this.repoService.create(apiUrl, formData).subscribe(
         response => {
           const dialogUsers = this.dialog.open(SuccessDialogComponent, this.dialogConfig);
@@ -133,7 +135,11 @@ export class EdituserComponent implements OnInit {
     else{
       this.repoService.update(this.id, formData).subscribe(
         response => {
-          console.log(response);
+          const dialogUsers = this.dialog.open(SuccesUpdateComponent, this.dialogConfig);
+          dialogUsers.afterClosed()
+            .subscribe(result => {
+              console.log(result);
+            });
         }
       );
     }

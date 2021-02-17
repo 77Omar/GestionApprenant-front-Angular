@@ -26,6 +26,8 @@ import {EditGroupecompetenceComponent} from '../groupeCompetences/edit-groupecom
 import {AddProfilDeSortieComponent} from '../profilSortie/add-profil-de-sortie/add-profil-de-sortie.component';
 import {EditListProfilSortieComponent} from '../profilSortie/edit-list-profil-sortie/edit-list-profil-sortie.component';
 import {ListerCompetencesComponent} from '../competences/lister-competences/lister-competences.component';
+import {EditCompetenceComponent} from '../competences/edit-competence/edit-competence.component';
+import {EditReferentielComponent} from '../referentiels/edit-referentiel/edit-referentiel.component';
 
 
 
@@ -36,6 +38,7 @@ const routes: Routes = [
   {path: 'users', component: ListUserComponent, canActivate: [AuthGuard]},
   {path: 'users/add', component: AddUserComponent},
   {path: 'users/:id', component: EdituserComponent},
+  {path: 'users/detail/:id', component: DetailsUserComponent},
   {path: 'profils', component: ListProfilComponent},
   {path: 'profils/add', component: AddProfilComponent},
   {path: 'profils/:id/users', component: UtilisateurProfilComponent},
@@ -44,13 +47,13 @@ const routes: Routes = [
   {path: 'promos/:id', component: DetailsUserComponent},
   {path: 'referentiels', component: ListReferentielComponent},
   {path: 'referentiels/add', component: AddReferentielComponent},
-  {path: 'referentiels/:id', component: DetailReferentielComponent},
+  {path: 'referentiels/:id', component: EditReferentielComponent},
   {path: 'groupeCompetences', component: ListGroupeCompetenceComponent},
   {path: 'groupeCompetences/add', component: AddGroupeCompetenceComponent},
   {path: 'groupeCompetences/:id', component: EditGroupecompetenceComponent},
   {path: 'competences', component: ListerCompetencesComponent},
   {path: 'competences/add', component: AddCompetencesComponent},
-  {path: 'competences/:id', component: DetailCompetencesComponent},
+  {path: 'competences/:id', component: EditCompetenceComponent},
   {path: 'profilSortie', component: ListProfilDeSortieComponent},
   {path: 'profilSortie/add', component: AddProfilDeSortieComponent},
   {path: 'profilSortie/:id', component: EditListProfilSortieComponent},

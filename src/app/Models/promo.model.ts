@@ -12,8 +12,10 @@ export class Promo implements Deserializable{
   fabrique: string;
   dateFin: Date;
   referentiel: any;
+  apprenant: any;
 
-  constructor(langue: string, titre: string, description: string, lieu: string, referenceAgate: string, dateDebut: Date, fabrique: string, dateFin: Date, referentiel: any,  id?: number) {
+  // tslint:disable-next-line:max-line-length
+  constructor(langue: string, titre: string, description: string, lieu: string, referenceAgate: string, dateDebut: Date, fabrique: string, dateFin: Date, referentiel: any, apprenant: any, id?: number) {
     this.langue = langue;
     this.titre = titre;
     this.description = description;
@@ -23,6 +25,7 @@ export class Promo implements Deserializable{
     this.fabrique = fabrique;
     this.dateFin = dateFin;
     this.referentiel = referentiel;
+    this.apprenant = apprenant;
     this.id = id;
   }
 

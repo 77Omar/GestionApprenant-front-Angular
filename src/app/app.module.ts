@@ -51,6 +51,13 @@ import {AvatarModule} from 'ngx-avatar';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ItemPromoComponent } from './promos/list-promo/item-promo/item-promo.component';
 import { ListerCompetencesComponent } from './competences/lister-competences/lister-competences.component';
+import { EditCompetenceComponent } from './competences/edit-competence/edit-competence.component';
+import { EditReferentielComponent } from './referentiels/edit-referentiel/edit-referentiel.component';
+import {TagInputModule} from 'ngx-chips';
+import {QRCodeModule} from 'angularx-qrcode';
+import { FilterPipe } from './pipes/filter.pipe';
+import { SuccesUpdateComponent } from './succes-update/succes-update.component';
+
 
 @NgModule({
   declarations: [
@@ -92,6 +99,10 @@ import { ListerCompetencesComponent } from './competences/lister-competences/lis
     AddProfilDeSortieComponent,
     ItemPromoComponent,
     ListerCompetencesComponent,
+    EditCompetenceComponent,
+    EditReferentielComponent,
+    FilterPipe,
+    SuccesUpdateComponent,
   ],
   imports: [
     BrowserModule,
@@ -105,6 +116,8 @@ import { ListerCompetencesComponent } from './competences/lister-competences/lis
     AngularMultiSelectModule,
     PdfViewerModule,
     AvatarModule,
+    TagInputModule,
+    QRCodeModule
   ],
   providers: [AuthGuard,
     {

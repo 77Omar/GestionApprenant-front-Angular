@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class GroupeCompetenceService {
 
-  apiUrl = 'http://127.0.0.1:8000/api/admin/groupeCompetence';
+  apiUrl = 'api/admin/groupeCompetence';
 
   constructor(private http: HttpClient) { }
   // tslint:disable-next-line:typedef

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Users} from '../../Models/users.model';
 import {RepositoryService} from '../../repository.service';
 import {Router} from '@angular/router';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-
+import {SearchService} from '../../services/search.service';
+import {TriService} from '../../services/tri.service';
 
 
 @Component({
@@ -12,17 +13,22 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
   styleUrls: ['./list-user.component.css']
 })
 export class ListUserComponent implements OnInit {
+  @Input() receiveSearchFromApp = '';
+  search = '';
 
   private deleteId: number;
   users: Users[] = [];
   contentDetails: any;
   closeResult: any;
+  startIndex = 0;
+  endIndex = 6;
 
-  constructor( private repoService: RepositoryService, private router: Router, private dialog: MatDialog) {
-  }
+
+  // tslint:disable-next-line:max-line-length
+  constructor( private repoService: RepositoryService, private searchSrv: SearchService, private triService: TriService, private router: Router, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-      this.repoService.getData('http://localhost:8000/api/admin/users').subscribe(
+      this.repoService.getData('api/admin/users').subscribe(
         response => {
              for (const u of response){
                console.log(response);
@@ -31,20 +37,30 @@ export class ListUserComponent implements OnInit {
                user.deserializable(u);
                this.users.push(user);
              }
+             // Trier tableau
+             this.triService.triUser(this.users);
              console.log(this.users);
         },
         error => console.log(error)
       );
+
+      this.newValue();
+      this.searchSrv.currentSearch.subscribe(search => this.search = search);
+      }
+  // tslint:disable-next-line:typedef
+      newValue() {
+       this.searchSrv.changeValue('');
       }
 
- /* transform(encodeImage): any{
-    if (encodeImage){
-      encodeImage = 'data:image/jpeg;base64,' + encodeImage;
-    }else {
-      encodeImage = '../../../assets/picture/sonatel.jpg';
-    }
-    return encodeImage;
-  }*/
+  // tslint:disable-next-line:typedef
+  getArrayFromNumber(length){
+    return new Array(5 );
+  }
+  // tslint:disable-next-line:typedef
+  updateIndex(pageIndex){
+    this.startIndex = pageIndex * 6;
+    this.endIndex = this.startIndex + 6;
+  }
 
   // tslint:disable-next-line:typedef
   editButtonclick(uId: number){
@@ -52,7 +68,7 @@ export class ListUserComponent implements OnInit {
   }
 // tslint:disable-next-line:typedef
   detailButtonclick(uId: number){
-    this.router.navigate(['/users', uId]);
+    this.router.navigate(['users/detail', uId]);
   }
 
   // tslint:disable-next-line:typedef
@@ -73,15 +89,5 @@ export class ListUserComponent implements OnInit {
       }
     );
   }
-  /*
-     redirectToDetails(id: any) {
-    this._id = id;
-    this.repoService.users = id;
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '50%';
-    this.dialog.open(EdituserComponent, dialogConfig);
-  }*/
 
 }

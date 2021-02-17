@@ -32,7 +32,7 @@ export class AddProfilComponent implements OnInit {
       this.profils = new Profils(
         this.CreateForm.value.libelle,
       );
-      const apiUrl = 'http://127.0.0.1:8000/api/admin/profils';
+      const apiUrl = 'api/admin/profils';
       this.repoService.createprofil(apiUrl, this.profils).subscribe(
         response => {
           console.log(response);
@@ -41,5 +41,4 @@ export class AddProfilComponent implements OnInit {
       );
     }
   }
-
 }

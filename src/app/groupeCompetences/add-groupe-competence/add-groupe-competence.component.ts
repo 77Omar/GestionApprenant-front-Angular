@@ -82,7 +82,7 @@ export class AddGroupeCompetenceComponent implements OnInit {
            );
     // console.log(this.groupCompetence);
     if (!this.id){
-      const apiUrl = 'http://127.0.0.1:8000/api/admin/groupeCompetence';
+      const apiUrl = 'api/admin/groupeCompetence';
       this.repoService.PostgroupComp(apiUrl, this.groupCompetence).subscribe(
         response => {
           const dialogUsers = this.dialog.open(SuccessDialogComponent, this.dialogConfig);

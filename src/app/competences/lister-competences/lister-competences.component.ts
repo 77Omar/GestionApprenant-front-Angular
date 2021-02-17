@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Competences} from '../../Models/competences.model';
 import {RepositoryService} from '../../repository.service';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {groupeCompetences} from '../../Models/groupeCompetences.model';
 
 @Component({
@@ -14,10 +14,10 @@ export class ListerCompetencesComponent implements OnInit {
   groupcompetence: groupeCompetences[] = [];
   competences: Competences[] = [];
   niveaucomp: any = [];
-  constructor( private repoService: RepositoryService, private route: ActivatedRoute) { }
+  constructor( private repoService: RepositoryService, private router: Router) { }
 
   ngOnInit(): void {
-    this.repoService.getAllgroupComp('http://127.0.0.1:8000/api/admin/groupeCompetence').subscribe(
+    this.repoService.getAllgroupComp('api/admin/groupeCompetence').subscribe(
       response => {
         for (const g of response){
           console.log(response);
@@ -26,6 +26,7 @@ export class ListerCompetencesComponent implements OnInit {
           groupsComp.deserializable(g);
           this.groupcompetence.push(groupsComp);
         }
+        this.getCompGroups(this.groupcompetence[0].id);
       },
       error => console.log(error)
     );
@@ -34,7 +35,7 @@ export class ListerCompetencesComponent implements OnInit {
   // tslint:disable-next-line:typedef
   getCompGroups(id){
     this.competences = [];
-    this.repoService.getAllgroupComp(`http://127.0.0.1:8000/api/admin/groupe_competences/${id}/competences`).subscribe(
+    this.repoService.getAllgroupComp(`api/admin/groupe_competences/${id}/competences`).subscribe(
       result => {
         for (const grC of result) {
           // @ts-ignore
@@ -55,5 +56,9 @@ export class ListerCompetencesComponent implements OnInit {
         this.niveaucomp.push(nivocomp);
       }
     console.log(this.niveaucomp);
+  }
+  // tslint:disable-next-line:typedef
+  EditButtonclick(uId: number){
+    this.router.navigate(['/competences', uId]);
   }
 }

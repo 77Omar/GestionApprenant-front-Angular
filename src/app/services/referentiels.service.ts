@@ -6,9 +6,10 @@ import {HttpClient} from '@angular/common/http';
 })
 export class ReferentielsService {
 
-  apiUrl = 'http://127.0.0.1:8000/api/admin/referentiels';
+  apiUrl = 'api/admin/referentiels';
 
   constructor(private http: HttpClient) { }
+  // tslint:disable-next-line:typedef
   getReferentiels(){
     return this.http.get(this.apiUrl, {headers: {Accept: 'Application/json'}});
   }

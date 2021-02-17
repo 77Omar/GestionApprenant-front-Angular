@@ -14,7 +14,7 @@ export class ListReferentielComponent implements OnInit {
   constructor( private repoService: RepositoryService ) { }
 
   ngOnInit(): void {
-    this.repoService.getAllReferentiel('http://127.0.0.1:8000/api/admin/referentiels').subscribe(
+    this.repoService.getAllReferentiel('api/admin/referentiels').subscribe(
       response => {
         for (const r of response) {
           console.log(response);

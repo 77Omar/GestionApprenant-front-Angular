@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Users} from '../../Models/users.model';
 import {MatDialog} from '@angular/material/dialog';
 import {SuccessDialogComponent} from '../../success-dialog/success-dialog.component';
+import {SuccesUpdateComponent} from '../../succes-update/succes-update.component';
 
 @Component({
   selector: 'app-edit-list-profil-sortie',
@@ -69,7 +70,7 @@ export class EditListProfilSortieComponent implements OnInit {
         this.CreateForm.value.libelle,
       );
       if (!this.id){
-      const apiUrl = 'http://localhost:8000/api/admin/profilsorties';
+      const apiUrl = 'api/admin/profilsorties';
       this.repoService.createprofil(apiUrl, this.profils).subscribe(
         response => {
           const dialogPrSortie = this.dialog.open(SuccessDialogComponent, this.dialogConfig);
@@ -85,7 +86,11 @@ export class EditListProfilSortieComponent implements OnInit {
     else{
         this.repoService.UpdateProfiSortill(this.id, this.profils).subscribe(
           response => {
-            console.log(response);
+            const dialogUsers = this.dialog.open(SuccesUpdateComponent, this.dialogConfig);
+            dialogUsers.afterClosed()
+              .subscribe(result => {
+                console.log(result);
+              });
           }
         );
     }

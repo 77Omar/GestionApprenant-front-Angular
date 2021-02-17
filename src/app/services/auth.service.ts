@@ -12,7 +12,7 @@ export class AuthService {
 
   // tslint:disable-next-line:typedef
   gettokenlogin(user){
-    return this.http.post<any>('http://127.0.0.1:8000/api/login', user);
+    return this.http.post<any>('api/login', user);
   }
 
   // tslint:disable-next-line:typedef

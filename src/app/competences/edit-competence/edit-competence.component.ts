@@ -1,17 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import {Competences} from '../../Models/competences.model';
-import {RepositoryService} from '../../repository.service';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {RepositoryService} from '../../repository.service';
 import {GroupeCompetenceService} from '../../services/groupe-competence.service';
 import {MatDialog} from '@angular/material/dialog';
 import {SuccessDialogComponent} from '../../success-dialog/success-dialog.component';
+import {ActivatedRoute} from '@angular/router';
+import {groupeCompetences} from '../../Models/groupeCompetences.model';
+import {SuccesUpdateComponent} from '../../succes-update/succes-update.component';
 
 @Component({
-  selector: 'app-add-competences',
-  templateUrl: './add-competences.component.html',
-  styleUrls: ['./add-competences.component.css']
+  selector: 'app-edit-competence',
+  templateUrl: './edit-competence.component.html',
+  styleUrls: ['./edit-competence.component.css']
 })
-export class AddCompetencesComponent implements OnInit {
+export class EditCompetenceComponent implements OnInit {
+
 
   competence: Competences;
   CreateCompetenceForm: FormGroup;
@@ -25,9 +29,12 @@ export class AddCompetencesComponent implements OnInit {
   constructor( private repoService: RepositoryService,
                private groupCompService: GroupeCompetenceService,
                private dialog: MatDialog,
-               private fb: FormBuilder) { }
+               private fb: FormBuilder,
+               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // Modify
+    this.id = this.route.snapshot.paramMap.get('id');
     console.log(this.repoService.competent);
     this.CreateCompetenceForm = new FormGroup({
       libelle: new FormControl('', [Validators.required, Validators.maxLength(60)]),
@@ -59,7 +66,29 @@ export class AddCompetencesComponent implements OnInit {
         enableSearchFilter: true,
         classes: 'myclass custom-class'
       };
+    this.route.paramMap.subscribe(
+      params => {
+        const groupid = +params.get('id');
+        if (groupid) {
+          this.getComp(groupid);
+        }
+      });
+  }// tslint:disable-next-line:typedef
+  getComp(id: number) {
+    this.repoService.getCompId(id).subscribe(
+      (groupe: Competences) => this.editComp(groupe),
+      (error: any) => console.log(error),
+    );
   }
+  // tslint:disable-next-line:typedef
+  editComp(groupe: Competences) { this.id = this.route.snapshot.paramMap.get('id');
+                                  this.CreateCompetenceForm.patchValue({
+      libelle: groupe.libelle,
+      groupeCompetences: groupe.groupeCompetences,
+      niveaux: groupe.niveaux
+    });
+  }
+
   public hasError = (controlName: string, errorName: string) => {
     return this.CreateCompetenceForm.controls[controlName].hasError(errorName);
   }
@@ -72,7 +101,7 @@ export class AddCompetencesComponent implements OnInit {
         }
       }
     }
-     // @ts-ignore
+    // @ts-ignore
     this.competence = new Competences(
       this.CreateCompetenceForm.value.libelle,
       this.CreateCompetenceForm.value.groupeCompetences,
@@ -89,6 +118,17 @@ export class AddCompetencesComponent implements OnInit {
             });
         },
         error => console.log(error)
+      );
+    }
+    else{
+      this.repoService.UpdateCompetence(this.id, this.competence).subscribe(
+        response => {
+          const dialogUsers = this.dialog.open(SuccesUpdateComponent, this.dialogConfig);
+          dialogUsers.afterClosed()
+            .subscribe(result => {
+              console.log(result);
+            });
+        }
       );
     }
   }

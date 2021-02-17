@@ -14,7 +14,7 @@ export class ListPromoComponent implements OnInit {
 
   ngOnInit(): void {
     // @ts-ignore
-    this.repoService.getAllPromo('http://127.0.0.1:8000/api/admin/promo').subscribe(
+    this.repoService.getAllPromo('api/admin/promo').subscribe(
       response => {
          for (const p of response){
            console.log(response);

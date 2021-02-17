@@ -4,15 +4,17 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RepositoryService} from '../../repository.service';
 import {GroupeCompetenceService} from '../../services/groupe-competence.service';
 import {MatDialog} from '@angular/material/dialog';
-import {groupeCompetences} from '../../Models/groupeCompetences.model';
 import {SuccessDialogComponent} from '../../success-dialog/success-dialog.component';
+import {ActivatedRoute} from '@angular/router';
+import {Users} from '../../Models/users.model';
+import {SuccesUpdateComponent} from '../../succes-update/succes-update.component';
 
 @Component({
-  selector: 'app-add-referentiel',
-  templateUrl: './add-referentiel.component.html',
-  styleUrls: ['./add-referentiel.component.css']
+  selector: 'app-edit-referentiel',
+  templateUrl: './edit-referentiel.component.html',
+  styleUrls: ['./edit-referentiel.component.css']
 })
-export class AddReferentielComponent implements OnInit {
+export class EditReferentielComponent implements OnInit {
 
   private id: any;
   private dialogConfig;
@@ -25,9 +27,12 @@ export class AddReferentielComponent implements OnInit {
 
   constructor( private repoService: RepositoryService,
                private groupCompService: GroupeCompetenceService,
-               private dialog: MatDialog) { }
+               private dialog: MatDialog,
+               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id');
+
     console.log(this.repoService.referentiel);
     this.CreateReferentielForm = new FormGroup({
       libelle: new FormControl('', [Validators.required, Validators.maxLength(60)]),
@@ -59,42 +64,68 @@ export class AddReferentielComponent implements OnInit {
         selectAllText: 'Select All',
         unSelectAllText: 'UnSelect All',
         enableSearchFilter: true,
-        classes: 'myclass custom-class'
+        classes: 'myclass custom-class',
       };
+    this.route.paramMap.subscribe(
+      params => {
+        const refId = +params.get('id');
+        if (refId) {
+          this.getReferentiel(refId);
+        }
+      });
   }
+  // tslint:disable-next-line:typedef
+  getReferentiel(id: number){
+    this.repoService.getReferentielId(id).subscribe(
+      (ref: Referentiel) => this.editReferentiels(ref),
+      (error: any) => console.log(error)
+    );
+  }
+  // tslint:disable-next-line:typedef
+  editReferentiels(refs: Referentiel) {
+    this.CreateReferentielForm.patchValue({
+      libelle: refs.libelle,
+      presentation: refs.presentation,
+      criteresEvaluation: refs.criteresEvaluation,
+      criteresAdmission: refs.criteresAdmission,
+      programme: refs.programme,
+      groupeCompetence: refs.groupeCompetences
+    });
+  }
+
   public hasError = (controlName: string, errorName: string) => {
     return this.CreateReferentielForm.controls[controlName].hasError(errorName);
   }
 
   public CreateReferentiel = () => {
-     for (const elm of this.CreateReferentielForm.controls.groupeCompetence.value) {
-       for (const key in elm){
-          if ( elm.hasOwnProperty(key) && key !== 'id') {
-            delete elm[key];
-          }
-       }
-     }
-    // @ts-ignore
-     this.referentiels = new Referentiel(
-        this.CreateReferentielForm.value.libelle,
-        this.CreateReferentielForm.value.presentation,
-        this.CreateReferentielForm.value.criteresEvaluation,
-        this.CreateReferentielForm.value.criteresAdmission,
-        this.CreateReferentielForm.value.programme,
-        this.CreateReferentielForm.value.groupeCompetence,
-    );
-     const formData = new FormData();
-     formData.append('libelle', this.referentiels.libelle);
-     formData.append('presentation', this.referentiels.presentation);
-     formData.append('criteresEvaluation', this.referentiels.criteresEvaluation);
-     formData.append('criteresAdmission', this.referentiels.criteresAdmission);
-     formData.append('programme', this.image);
-     for (const grcomp of this.referentiels.groupeCompetences) {
-      formData.append('groupeCompetence[]', grcomp.id);
+    for (const elm of this.CreateReferentielForm.controls.groupeCompetence.value) {
+      for (const key in elm){
+        if ( elm.hasOwnProperty(key) && key !== 'id') {
+          delete elm[key];
+        }
       }
-     // console.log(this.referentiels.groupeCompetences);
+    }
+    // @ts-ignore
+    this.referentiels = new Referentiel(
+      this.CreateReferentielForm.value.libelle,
+      this.CreateReferentielForm.value.presentation,
+      this.CreateReferentielForm.value.criteresEvaluation,
+      this.CreateReferentielForm.value.criteresAdmission,
+      this.CreateReferentielForm.value.programme,
+      this.CreateReferentielForm.value.groupeCompetence,
+    );
+    const formData = new FormData();
+    formData.append('libelle', this.referentiels.libelle);
+    formData.append('presentation', this.referentiels.presentation);
+    formData.append('criteresEvaluation', this.referentiels.criteresEvaluation);
+    formData.append('criteresAdmission', this.referentiels.criteresAdmission);
+    formData.append('programme', this.image);
+    formData.append('_method', 'PUT');
+    for (const grcomp of this.referentiels.groupeCompetences) {
+      formData.append('groupeCompetence[]', grcomp.id);
+    }
 
-     if (!this.id){
+    if (!this.id){
       const apiUrl = 'api/admin/referentiels';
       this.repoService.PostReferentiels(apiUrl, formData).subscribe(
         response => {
@@ -107,10 +138,22 @@ export class AddReferentielComponent implements OnInit {
         error => console.log(error)
       );
     }
+    else{
+      this.repoService.updateReferentiel(this.id, formData).subscribe(
+        response => {
+          const dialogUsers = this.dialog.open(SuccesUpdateComponent, this.dialogConfig);
+          dialogUsers.afterClosed()
+            .subscribe(result => {
+              console.log(result);
+            });
+        }
+      );
+    }
   }
   // tslint:disable-next-line:typedef
   detectFiles(event){
     this.image = event.target.files[0];
     console.log(this.image);
   }
+
 }

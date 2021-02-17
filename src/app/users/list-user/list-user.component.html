@@ -8,6 +8,9 @@
 </head>
 <body>
 <div class="outer-container">
+  <input type="text" [(ngModel)]="search" placeholder="Search">
+  <hr>
+  {{receiveSearchFromApp}}
   <h4 [routerLink]="['add']" class="card-title btn btn-info"><i class="fa fa-user-plus" aria-hidden="true"></i>
     Create</h4>
   <h1>List of Users</h1>
@@ -24,8 +27,7 @@
     </tr>
     </thead>
     <tbody>
-
-    <tr class="priority-300" *ngFor="let u of users">
+    <tr *ngFor="let u of users | slice:startIndex:endIndex | filter: receiveSearchFromApp | filter:search " class="col-sm-4 mb-4 priority-300">
       <td><img src="{{'data:image/jpg;base64,' +u.avatar}}" class="avatar" alt=""></td>
       <td>{{u.firstName}}</td>
       <td>{{u.lastName}}</td>
@@ -37,10 +39,26 @@
     </tr>
     </tbody>
   </table>
+
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li *ngFor="let i of getArrayFromNumber(users.length); let in = index" class="page-item"><a class="page-link" (click)="updateIndex(in)">{{in+1}}</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
 </div>
 </body>
 </html>
-
 
 <ng-template #contentDelete let-modal>
   <div class="modal-header">

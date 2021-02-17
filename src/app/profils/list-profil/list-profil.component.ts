@@ -16,7 +16,7 @@ export class ListProfilComponent implements OnInit {
   constructor( private repoService: RepositoryService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.repoService.getprofilData('http://localhost:8000/api/admin/profils?isDeleted=false').subscribe(
+    this.repoService.getprofilData('api/admin/profils?isDeleted=false').subscribe(
       response => {
         for (const p of response){
           console.log(response);

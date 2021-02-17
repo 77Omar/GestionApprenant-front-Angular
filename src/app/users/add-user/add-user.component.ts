@@ -114,7 +114,7 @@ export class AddUserComponent implements OnInit {
       formData.append('profils', this.user.profil);
       // formData.append('_method', 'PUT');
       if (!this.id){
-        const apiUrl = 'http://127.0.0.1:8000/api/admin/users';
+        const apiUrl = 'api/admin/users';
         this.repoService.create(apiUrl, formData).subscribe(
           response => {
             const dialogUsers = this.dialog.open(SuccessDialogComponent, this.dialogConfig);

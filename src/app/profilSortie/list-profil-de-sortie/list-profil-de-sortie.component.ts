@@ -15,7 +15,7 @@ export class ListProfilDeSortieComponent implements OnInit {
                private router: Router) { }
 
   ngOnInit(): void {
-    this.repoService.getprofilData('http://127.0.0.1:8000/api/admin/profilsorties').subscribe(
+    this.repoService.getprofilData('api/admin/profilsorties').subscribe(
       response => {
         for (const p of response){
           console.log(response);

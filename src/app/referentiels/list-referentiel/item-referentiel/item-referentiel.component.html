@@ -11,25 +11,30 @@
       <div id="collapse{{refs.id}}" class="panel-collapse collapse in" role="tabpanel">
         <div class="col-sm-12 col-sm-12 item">
           <div class="card item-card card-block">
-            <h3 class="item-card-title mt-3 mb-3">{{refs.libelle}}</h3>
+            <div class="d-flex bd-highlight">
+              <i class="fa fa-close fa-2x me-3 actions text-danger  p-2 flex-fill bd-highlight"></i>
+              <i (click)="EditButtonclick(refs.id)" class="fa fa-edit fa-2x me-3 actions  p-2 flex-fill bd-highlight"></i>
+            </div>
+            <h3 class="item-card-title mt-3 mb-3">Libelle: {{refs.libelle}}</h3>
             <img src="https://static.pexels.com/photos/7096/people-woman-coffee-meeting.jpg" alt="Photo of sunset">
-            <h3 class="item-card-title mt-3 mb-3">{{refs.presentation }}</h3>
-            <h3 class="item-card-title mt-3 mb-3">{{refs.criteresAdmission }}</h3>
-            <h3 class="item-card-title mt-3 mb-3">{{refs.criteresEvaluation }}</h3>
-            <!--<h3 class="card-img-top"><img src="{{'data:image/jpg;base64,' +refs.programme}}" class="avatar" alt=""></h3>-->
-            <!--<button (click)="generatePdf()">Open PDF</button>-->
-            <!--<input type="button" (click)="getFile" value="Get File" />-->
+            <h3 class="item-card-title mt-3 mb-3">Presentation: {{refs.presentation }}</h3>
+            <h3 class="item-card-title mt-3 mb-3">Criteres Admission: {{refs.criteresAdmission }}</h3>
+            <h3 class="item-card-title mt-3 mb-3">Criteres Evaluation: {{refs.criteresEvaluation }}</h3>
             <div class="pdf-container">
-              <pdf-viewer [src]="base64Data"
+              <!--<pdf-viewer
+                [src]="base64Data"
                           [original-size]="false"
-              ></pdf-viewer>
+              ></pdf-viewer>-->
+              <div class="alert alert-secondary text-center" role="alert">
+                <button (click)="openProgramme()" class="btn btn-outline-secondary p-2 rounded">Ouvrir Programme</button>
+              </div>
             </div>
             <a class="p-3 mb-2 bg-info text-white" role="button" data-toggle="collapse" data-parent="#accordion" href="{{'#demo'+refs.id}}" aria-expanded="true" aria-controls="collapse">
               <h5>#Cliquez pour voir les groupes de competences</h5>
             </a>
             <div id="demo{{refs.id}}" class="collapse">
-              <h3 class="item-card-title mt-3 mb-3" *ngFor="let ref of refs.groupeCompetences">{{ref.libelle }}</h3>
-              <h3 class="item-card-title mt-3 mb-3" *ngFor="let ref of refs.groupeCompetences">{{ref.descriptif }}</h3>
+              <h3 class="item-card-title mt-3 mb-3" *ngFor="let ref of refs.groupeCompetences">Libelle: {{ref.libelle }}</h3>
+              <h3 class="item-card-title mt-3 mb-3" *ngFor="let ref of refs.groupeCompetences">Description: {{ref.descriptif }}</h3>
             </div>
 
           </div>

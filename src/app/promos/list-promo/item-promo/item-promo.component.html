@@ -11,22 +11,29 @@
       <div id="collapse{{promo.id}}" class="panel-collapse collapse in" role="tabpanel">
         <div class="col-sm-12 col-sm-12 item">
           <div class="card item-card card-block">
-            <h3 class="item-card-title mt-3 mb-3">{{promo.langue}}</h3>
-            <h5 class="item-card-title mt-3 mb-3">{{promo.titre }}</h5>
-            <h3 class="item-card-title mt-3 mb-3">{{promo.description}}</h3>
-            <h5 class="item-card-title mt-3 mb-3">{{promo.lieu }}</h5>
-            <h3 class="item-card-title mt-3 mb-3">{{promo.referenceAgate}}</h3>
-            <h5 class="item-card-title mt-3 mb-3">{{promo.dateDebut }}</h5>
-            <h3 class="item-card-title mt-3 mb-3">{{promo.fabrique}}</h3>
-            <h5 class="item-card-title mt-3 mb-3">{{promo.dateFin }}</h5>
+            <img src="https://static.pexels.com/photos/7096/people-woman-coffee-meeting.jpg" alt="Photo of sunset">
+            <h3 class="item-card-title mt-3 mb-3">Langue: {{promo.langue}}</h3>
+            <h5 class="item-card-title mt-3 mb-3">Titre: {{promo.titre }}</h5>
+            <h3 class="item-card-title mt-3 mb-3">Description: {{promo.description}}</h3>
+            <h5 class="item-card-title mt-3 mb-3">Lieu: {{promo.lieu }}</h5>
+            <h3 class="item-card-title mt-3 mb-3">Reference Agate: {{promo.referenceAgate}}</h3>
+            <h5 class="item-card-title mt-3 mb-3">Date Debut: {{promo.dateDebut }}</h5>
+            <h3 class="item-card-title mt-3 mb-3">Fabrique: {{promo.fabrique}}</h3>
+            <h5 class="item-card-title mt-3 mb-3">Date Fin: {{promo.dateFin }}</h5>
             <a class="p-3 mb-2 bg-info text-white" role="button" data-toggle="collapse" data-parent="#accordion" href="{{'#demo'+promo.id}}" aria-expanded="true" aria-controls="collapse">
               <h5>#Cliquez pour voir les Referentiels</h5>
             </a>
             <div id="demo{{promo.id}}" class="collapse">
-              <h3 class="item-card-title mt-3 mb-3" *ngFor="let pro of promo.referentiel">{{pro.libelle }}</h3>
-              <h5 class="item-card-title mt-3 mb-3" *ngFor="let pro of promo.referentiel">{{pro.presentation }}</h5>
-              <h3 class="item-card-title mt-3 mb-3" *ngFor="let pro of promo.referentiel">{{pro.criteresAdmission }}</h3>
-              <h5 class="item-card-title mt-3 mb-3" *ngFor="let pro of promo.referentiel">{{pro.criteresEvaluation }}</h5>
+              <h3 class="item-card-title mt-3 mb-3" *ngFor="let pro of promo.referentiel">Libelle: {{pro.libelle }}</h3>
+              <h5 class="item-card-title mt-3 mb-3" *ngFor="let pro of promo.referentiel">Presentation: {{pro.presentation }}</h5>
+              <h3 class="item-card-title mt-3 mb-3" *ngFor="let pro of promo.referentiel">Criteres Admission: {{pro.criteresAdmission }}</h3>
+              <h5 class="item-card-title mt-3 mb-3" *ngFor="let pro of promo.referentiel">Criteres Evaluation: {{pro.criteresEvaluation }}</h5>
+            </div>
+            <a class="p-3 mb-2 bg-info text-white" role="button" data-toggle="collapse" data-parent="#accordion" href="{{'#demos'+promo.id}}" aria-expanded="true" aria-controls="collapse">
+              <h5>#Cliquez pour voir les apprenants</h5>
+            </a>
+            <div id="demos{{promo.id}}" class="collapse">
+              <h3 class="item-card-title mt-3 mb-3" *ngFor="let app of promo.apprenant">email: {{app.email }}</h3>
             </div>
           </div>
         </div>

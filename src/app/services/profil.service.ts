@@ -5,7 +5,7 @@ import {HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class ProfilService {
-  apiUrl = 'http://127.0.0.1:8000/api/admin/profils';
+  apiUrl = 'api/admin/profils';
 
   constructor(private http: HttpClient) { }
 

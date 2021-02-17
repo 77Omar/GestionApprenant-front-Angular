@@ -16,7 +16,7 @@ export class ListGroupeCompetenceComponent implements OnInit {
   ngOnInit(): void {
     // @ts-ignore
     // this.groupComp = this.repoService.getAllgroupComp();
-    this.repoService.getAllgroupComp('http://127.0.0.1:8000/api/admin/groupeCompetence').subscribe(
+    this.repoService.getAllgroupComp('api/admin/groupeCompetence').subscribe(
       response => {
         for (const g of response){
           console.log(response);

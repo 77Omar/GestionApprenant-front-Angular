@@ -31,7 +31,7 @@ export class AddProfilDeSortieComponent implements OnInit {
       this.profils = new Profils(
         this.CreateForm.value.libelle,
       );
-      const apiUrl = 'http://localhost:8000/api/admin/profilsorties';
+      const apiUrl = 'api/admin/profilsorties';
       this.repoService.createprofil(apiUrl, this.profils).subscribe(
         response => {
           console.log(response);

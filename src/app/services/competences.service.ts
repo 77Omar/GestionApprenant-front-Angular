@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class CompetencesService {
 
-  apiUrl = 'http://127.0.0.1:8000/api/admin/competences';
+  apiUrl = 'api/admin/competences';
 
   constructor(private http: HttpClient) { }
   // tslint:disable-next-line:typedef

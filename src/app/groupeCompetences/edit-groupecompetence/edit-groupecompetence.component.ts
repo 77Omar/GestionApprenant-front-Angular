@@ -6,6 +6,7 @@ import {CompetencesService} from '../../services/competences.service';
 import {MatDialog} from '@angular/material/dialog';
 import {SuccessDialogComponent} from '../../success-dialog/success-dialog.component';
 import {ActivatedRoute} from '@angular/router';
+import {SuccesUpdateComponent} from '../../succes-update/succes-update.component';
 
 @Component({
   selector: 'app-edit-groupecompetence',
@@ -110,7 +111,7 @@ export class EditGroupecompetenceComponent implements OnInit {
     );
     // console.log(this.groupCompetence);
     if (!this.id){
-      const apiUrl = 'http://127.0.0.1:8000/api/admin/groupeCompetence';
+      const apiUrl = 'api/admin/groupeCompetence';
       this.repoService.PostgroupComp(apiUrl, this.groupCompetence).subscribe(
         response => {
           const dialogUsers = this.dialog.open(SuccessDialogComponent, this.dialogConfig);
@@ -125,7 +126,11 @@ export class EditGroupecompetenceComponent implements OnInit {
     else{
       this.repoService.UpdateGroupComp(this.id, this.groupCompetence).subscribe(
         response => {
-          console.log(response);
+          const dialogUsers = this.dialog.open(SuccesUpdateComponent, this.dialogConfig);
+          dialogUsers.afterClosed()
+            .subscribe(result => {
+              console.log(result);
+            });
         }
       );
     }

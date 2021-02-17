@@ -11,18 +11,19 @@
       <div id="collapse{{grcompetence.id}}" class="panel-collapse collapse in" role="tabpanel">
         <div class="col-sm-12 col-sm-12 item">
           <div class="card item-card card-block">
-            <a (click)="detailButtonclick(grcompetence.id)" class="btn btn-sm"><i class="fas fa-edit mr-0" title="edit row"></i></a>
-            <a><i class="fas fa-trash-alt" title="delete row"></i></a>
-            <h3 class="item-card-title mt-3 mb-3">{{grcompetence.libelle}}</h3>
+            <div class="d-flex bd-highlight">
+              <i class="fa fa-close fa-2x me-3 actions text-danger  p-2 flex-fill bd-highlight"></i>
+              <i (click)="detailButtonclick(grcompetence.id)" class="fa fa-edit fa-2x me-3 actions  p-2 flex-fill bd-highlight"></i>
+            </div>
+            <h3 class="item-card-title mt-3 mb-3">Libelle: {{grcompetence.libelle}}</h3>
             <img src="https://static.pexels.com/photos/7096/people-woman-coffee-meeting.jpg" alt="Photo of sunset">
-            <h5 class="item-card-title mt-3 mb-3">{{grcompetence.descriptif }}</h5>
+            <h5 class="item-card-title mt-3 mb-3">Description: {{grcompetence.descriptif }}</h5>
             <a class="p-3 mb-2 bg-info text-white" role="button" data-toggle="collapse" data-parent="#accordion" href="{{'#demo'+grcompetence.id}}" aria-expanded="true" aria-controls="collapse">
               <h5>#Cliquez pour voir les competences</h5>
             </a>
             <div id="demo{{grcompetence.id}}" class="collapse">
-              <h3 class="item-card-title mt-3 mb-3" *ngFor="let competence of grcompetence.competences">{{competence.libelle }}</h3>
+              <h3 class="item-card-title mt-3 mb-3" *ngFor="let competence of grcompetence.competences">Competences: {{competence.libelle }}</h3>
             </div>
-            <!--<p class="p-3 mb-2 bg-info text-white" *ngFor="let competence of grcompetence.competences">{{competence.libelle }}</p>-->
           </div>
         </div>
       </div>

@@ -8,7 +8,7 @@
 <body>
 <div class="row">
   <div class="col-md-12">
-      <!--{{CreateCompetenceForm.value| json}}-->
+    <!--{{CreateCompetenceForm.value| json}}-->
     <form [formGroup]="CreateCompetenceForm" (ngSubmit)="CreateCompetence()">
       <h1> Add Skills </h1>
       <fieldset>
@@ -34,19 +34,19 @@
               <button type="button" (click)="onAddSecNiveaux()" class="btn btn-outline-success" style="border: 1px solid #e8eeef;; padding: 10px; width: 100px; margin: 5px;">+</button>
             </div>-->
           </div>
-        <div formArrayName="niveaux">
-          <div *ngFor="let secNiveauCtr of getNiveauxSecCtr(); let i= index" class="form-group mt-2">
-            {{'Niveau '+(i+1)}}
-            <div formGroupName="{{i}}" style="border: 1px solid #e8eeef; padding: 10px; width: 450px; margin: 5px;">
-              <label for="libelle">Libelle:</label>
-              <input type="text" class="form-control" formControlName="libelle">
+          <div formArrayName="niveaux">
+            <div *ngFor="let secNiveauCtr of getNiveauxSecCtr(); let i= index" class="form-group mt-2">
+              {{'Niveau '+(i+1)}}
+              <div formGroupName="{{i}}" style="border: 1px solid #e8eeef; padding: 10px; width: 450px; margin: 5px;">
+                <label for="libelle">Libelle:</label>
+                <input type="text" class="form-control" formControlName="libelle">
                 <label for="critereEvaluation">critereEvaluation:</label>
                 <input type="text" class="form-control" formControlName="critereEvaluation" id="critereEvaluation">
-               <label for="groupeAction">groupeAction:</label>
-               <input type="text" class="form-control" formControlName="groupeAction" id="groupeAction">
+                <label for="groupeAction">groupeAction:</label>
+                <input type="text" class="form-control" formControlName="groupeAction" id="groupeAction">
+              </div>
+            </div>
           </div>
-          </div>
-        </div>
         </div>
       </fieldset>
 
